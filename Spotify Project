@@ -1,0 +1,25 @@
+SELECT * FROM BIT_DB.Spotifydata;
+
+--Were there any songs with a time signature other than 4/4?
+
+SELECT artist_name, track_name, time_signature
+FROM Spotifydata
+WHERE time_signature <> 4;
+
+--What artists had the highest tempo hits?
+SELECT artist_name, ROUND(avg(tempo),2)
+FROM Spotifydata
+GROUP BY artist_name
+ORDER BY avg(tempo) DESC;
+
+--What artists appeared the most on the top songs list?
+SELECT artist_name, COUNT(artist_name) AS Appearances
+FROM Spotifydata
+GROUP BY artist_name
+ORDER BY Appearances DESC;
+
+--Were there any songs with above average energy, but below average loudness?
+SELECT track_name, energy, loudness
+FROM Spotifydata
+HAVING energy>AVG(energy) AND loudness<AVG(loudness)
+ORDER BY track_name;
